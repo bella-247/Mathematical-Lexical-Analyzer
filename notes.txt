@@ -1,0 +1,60 @@
+Architecture
+
+
+mathlex/
+│
+├── lexer/
+│   ├── __init__.py
+│   ├── lexer.py
+│   ├── token.py
+│   ├── token_types.py
+│   │
+│   └── recognizers/
+│       ├── __init__.py
+│       ├── number.py
+│       ├── identifier.py
+│       ├── operator.py
+│       └── delimiter.py
+│
+├── tests/
+│   ├── test_numbers.py
+│   ├── test_identifiers.py
+│   ├── test_operators.py
+│   └── test_lexer.py
+│
+└── main.py
+
+
+
+Token categories
+
+1, Numeric literals (integer, float, scientific numebr) -> General "NUMBER" token
+2, Identifiers -> IDENTIFIER (rules must start with alphabets or _, the next can be alphanumeric or _) 
+3, Arthemetic Operators -> (PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, POWER)
+-  Note : ** takes precedence over * during lexical recognition (maximal munch rule - the longest match principle)
+
+4, Parenthesis and grouping symbols -> (LEFT_PAREN, RIGHT_PAREN, LEFT_BRACKET, RIGHT_BRACKET, LEFT_BRACE, RIGHT_BRACE)
+
+5, Comparison operators -> (EQUAL (==), NOT_EQUAL (!=), GREATER_THAN, LESS_THAN, GREATER_EQUAL, LESS_EQUAL)
+- Note: ">=" is recognized as one token not two.
+
+6, Assignment Operator -> (ASSIGN)
+
+7, Mathematical functions (optional) -> sin(x),...
+- first recognized as identifiers
+
+8, Separators -> (COMMA)
+9, Whitespace -> space, tab, newline, carriage return ---> skipped
+10, End marker -> (EOF)
+
+
+
+Integer recognizer 
+
+Our regular-expression specification remains:
+
+NUMBER = DIGIT^+("."DIGIT^+)?
+
+
+
+
